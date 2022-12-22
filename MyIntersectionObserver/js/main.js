@@ -1,0 +1,28 @@
+'use strict';
+
+{
+  const targets = document.querySelectorAll('img');
+
+  function callback(entries, obs) {
+    console.log(entries[0]);
+    
+    entries.forEach(entry => {
+    if (!entry.isIntersecting) {
+      return;
+    }
+    entry.target.classList.add('appear');
+    obs.unobserve(entry.target);
+    });
+  }
+
+  const options = {
+    threshold: 1,
+    rootMargin: '0px 0px -100px',
+  }
+
+  const observer = new IntersectionObserver(callback, options);
+
+  targets.forEach(target => {
+    observer.observe(target);
+  });
+}
