@@ -12,6 +12,10 @@ export class App {
     const containerElement = document.querySelector("#js-todo-list");
     const todoItemCountElement = document.querySelector("#js-todo-count");
 
+    // 2. TodoListModelの状態が更新されたら表示を更新する
+    this.#todoListModel.onChange(() => {console.log("Helloworld"); });//改良)
+    this.#todoListModel.emit("change");
+
     // TodoリストをまとめるList要素
     const todoListElement = element`<ul></ul>`
 

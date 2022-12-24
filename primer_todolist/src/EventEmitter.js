@@ -31,14 +31,15 @@ export class EventEmitter {
    */
   emit(type) {
     // 指定したイベントに対応するSetを取り出し、すべてのリスナー関数を呼び出す
+    // getメソッドは特定のキーにひもづいた値を取り出す
     const listenerSet = this.#listeners.get(type);
     if (!listenerSet) {
       return;
     }
-    listenerSet.forEach(ownListener => {
-      if (ownListener === listener) {
-        listenerSet.delete(listener);
-      }
+    listenerSet.forEach(listener => {
+      // thisはなくても動く。ここでは特定の値の配列からlistenerを呼び出すので、
+      // thisはlistenerSetになる
+      listener.call(this);
     });
   }
 }
