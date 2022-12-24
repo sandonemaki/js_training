@@ -3,6 +3,9 @@ import { TodoItemModel } from "./model/TodoItemModel.js";
 import { element, render } from "./view/html-util.js";
 
 export class App {
+  // 1. TodoListModelの初期化
+  #todoListModel = new TodoListModel(); //改良
+
   mount() {
     const formElement = document.querySelector("#js-form");
     const inputElement = document.querySelector("#js-form-input");
