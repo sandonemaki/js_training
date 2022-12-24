@@ -1,3 +1,5 @@
+import { TodoListModel } from "./model/TodoListModel.js";
+import { TodoItemModel } from "./model/TodoItemModel.js";
 import { element, render } from "./view/html-util.js";
 
 export class App {
