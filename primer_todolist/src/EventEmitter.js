@@ -42,4 +42,23 @@ export class EventEmitter {
       listener.call(this);
     });
   }
+
+  /**
+   * 指定したイベントリスナーを解除する
+   * @param {string} type イベント名
+   * @param {Function} listener イベントリスナー
+   */
+  removeEventListner(type, listener) {
+    // 指定したイベントに対応するSetを取り出し、該当するリスナー関数を削除する
+    const listenerSet = this.#listeners.get(type);
+    if (!listenerSet) {
+      return;
+    }
+    // 特定のキーに紐づいた値を一つずつ取り出し、引数のlistenerと同じであれば削除する
+    istenerSet.forEach(ownListener => {
+      if (ownListener === listener) {
+        listenerSet.delete(listener);
+      }
+    });
+  }
 }
