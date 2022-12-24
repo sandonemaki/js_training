@@ -12,6 +12,17 @@ export class App {
     const containerElement = document.querySelector("#js-todo-list");
     const todoItemCountElement = document.querySelector("#js-todo-count");
 
+    // -----------------------
+    // リロードした時
+    // - index.jsからmountメソッドが呼び出される
+    // - ２のonChange目ヲッどを呼び出し、関数を登録する
+    //
+    // inputにテキスト入力した時
+    // - subumitイベントを発生させる
+    // - emitChange()が呼び出される
+    // - ２のonchangeメソッドの呼び出し時に渡した関数を呼び出す
+    // -----------------------
+
     // 2. TodoListModelの状態が更新されたら表示を更新する
     this.#todoListModel.onChange(() => {//改良
       // TodoリストをまとめるList要素
