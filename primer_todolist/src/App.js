@@ -32,9 +32,12 @@ export class App {
       const todoItems = this.#todoListModel.getTodoItems(); //改良
 
       // submitイベントが発生したときに直接DOM操作をしていた-> TodoListModelにTodoItemsを追加
-      todoItems.forEach(item => { //改良
-        // 追加するTodoアイテムの要素（li要素）を作成する
-        const todoItemElement = element`<li>${item.title}</li>`;
+      todoItems.forEach(item => {
+        // 完了済みならchecked属性をつけ、未完了ならchecked属性を外す
+        // input要素にはcheckboxクラスをつける
+        const todoItemElement = item.completed
+          ? element`<li><input type="checkbox" class="checkbox" checked><s>${item.title}</s></li>`
+          : element`<li><input type="checkbox" class="checkbox">${item.title}</li>`;
         // TodoアイテムをtodoListElementに追加する
         todoListElement.appendChild(todoItemElement);
       });
