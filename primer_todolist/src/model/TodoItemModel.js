@@ -12,7 +12,7 @@ export class TodoItemModel {
   /**
    * @param {{ title: string, completed:a boolean }}
    */
-  constructor({ titile, completed }) {
+  constructor({ title, completed }) {
     // idは連番となり、それぞれのインスタンス毎に異なるものとする
     this.id = todoIdx++;
     this.title = title;
