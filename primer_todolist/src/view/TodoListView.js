@@ -20,5 +20,8 @@ export class TodoListView {
         onDeleteTodo,
         onUpdateTodo
       });
+      todoListElement.appendChild(todoItemElement);
+    });
+    return todoListElement;
   }
 }
