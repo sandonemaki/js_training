@@ -1,4 +1,4 @@
-import { element } from "./view/html-util.js";
+import { element } from "./html-util.js";
 
 export class TodoItemView {
   /**
@@ -12,11 +12,11 @@ export class TodoItemView {
   createElement(todoItem, { onUpdateTodo, onDeleteTodo }) {
     const todoItemElement = todoItem.completed
       ? element`<li><input type="checkbox" class="checkbox" checked>
-          <s>${item.title}</s>
+          <s>${todoItem.title}</s>
           <button class="delete">x</button>
         </li>`
       : element`<li><input type="checkbox" class="checkbox">
-          ${item.title}
+          ${todoItem.title}
           <button class="delete">x</button>
         </li>`;
 
@@ -26,7 +26,7 @@ export class TodoItemView {
       // Appクラスが保持するtodoListModelのメソッドからコールバック関数に変更
       onUpdateTodo({
         id: todoItem.id,
-        completed: !item.completed
+        completed: !todoItem.completed
       });
     });
 
