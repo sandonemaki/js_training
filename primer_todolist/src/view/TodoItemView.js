@@ -20,6 +20,26 @@ export class TodoItemView {
           <button class="delete">x</button>
         </li>`;
 
+    // チェックボックスがトグルしたときのイベントリスナー関数を登録
+    const inputCheckboxElement = todoItemElement.querySelector(".checkbox");
+    inputCheckboxElement.addEventListener("change", () => {
+      // Appクラスが保持するtodoListModelのメソッドからコールバック関数に変更
+      onUpdateTodo({
+        id: todoItem.id,
+        completed: !item.completed
+      });
+    });
+
+    // 削除ボタン(x)がクリックされたときにTodoListModelからアイテムを削除する
+    const deleteButtonElement = todoItemElement.querySelector(".delete");
+    deleteButtonElement.addEventListener("click", () => {
+      // Appクラスが保持するtodoListModelのメソッドからコールバック関数に変更
+      onDeleteTodo({
+        id: todoItem.id
+      });
+    });
+    // 作成されたTodoアイテムのHTML要素を返す
+
   }
 
 }
