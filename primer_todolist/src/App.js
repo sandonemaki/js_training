@@ -1,10 +1,10 @@
 import { TodoListModel } from "./model/TodoListModel.js";
 import { TodoItemModel } from "./model/TodoItemModel.js";
+import { TodoListView } from './view/TodoListView.js';
 import { element, render } from "./view/html-util.js";
 
 export class App {
-  // 1. TodoListModelの初期化
-  #todoListModel = new TodoListModel(); //改良
+  #todoListModel = new TodoListModel();
 
   mount() {
     const formElement = document.querySelector("#js-form");
@@ -25,47 +25,9 @@ export class App {
 
     // 2. TodoListModelの状態が更新されたら表示を更新する
     this.#todoListModel.onChange(() => {//改良
-      // TodoリストをまとめるList要素
-      const todoListElement = element`<ul></ul>`;
 
       // それぞれのTodoItem要素をtodoListElement以下へ追加する
-      const todoItems = this.#todoListModel.getTodoItems(); //改良
-
-      // submitイベントが発生したときに直接DOM操作をしていた-> TodoListModelにTodoItemsを追加
-      todoItems.forEach(item => {
-        // 完了済みならchecked属性をつけ、未完了ならchecked属性を外す
-        // input要素にはcheckboxクラスをつける
-        const todoItemElement = item.completed
-          ? element`<li><input type="checkbox" class="checkbox" checked>
-          <s>${item.title}</s>
-          <button class="delete">x</button>
-          </li>`
-          : element`<li><input type="checkbox" class="checkbox">
-          ${item.title}
-          <button class="delete">x</button>
-          </li>`;
-
-        // チェックボックスがトグルしたときのイベントリスナー関数を登録
-        const inputCheckboxElement = todoItemElement.querySelector(".checkbox");
-        inputCheckboxElement.addEventListener("change", () => {
-          // 指定したTodoアイテムの完了状態を反転させる
-          this.#todoListModel.updateTodo({
-            id: item.id,
-            completed: !item.completed
-          });
-        });
-
-        // 削除ボタン(x)がクリックされたときにTodoListModelからアイテムを削除する
-        const deleteButtonElement = todoItemElement.querySelector(".delete");
-        deleteButtonElement.addEventListener("click", () => {
-          this.#todoListModel.deleteTodo({
-            id: item.id
-          });
-        });
-
-        // TodoアイテムをtodoListElementに追加する
-        todoListElement.appendChild(todoItemElement);
-      });
+      const todoItems = this.#todoListModel.getTodoItems();
 
       // コンテナ要素の中身をTodoリストをまとめるList要素で上書きする
       render(todoListElement, containerElement);
