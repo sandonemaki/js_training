@@ -7,6 +7,30 @@ export class App {
   #todoListModel = new TodoListModel();
   #todoListView = new TodoListView();
 
+  /**
+   * Todoを追加するときに呼ばれるリスナー関数
+   * @param {string} title
+   */
+  handleAdd(title) {
+    this.#todoListModel.addTodo(new TodoItemModel({ title, completed: false }));
+  }
+
+  /**
+   * Todoの状態を更新したときに呼ばれるリスナー関数
+  */
+  handleUpdate({ id, completed }) {
+    this.#todoListModel.updateTodo({ id, completed });
+  }
+
+  /**
+   * Todoを削除したときに呼ばれるリスナー関数
+   * @param {{ id: number }}
+   */
+  handleDelete({ id }) {
+    this.#todoListModel.deleteTodo({ id });
+  }
+
+
   mount() {
     const formElement = document.querySelector("#js-form");
     const inputElement = document.querySelector("#js-form-input");
@@ -34,11 +58,11 @@ export class App {
       const todoListElement = this.#todoListView.createElement(todoItems, {
         // Todoアイテムが更新イベントをハッシエしたときに呼ばれるリスナー関数
         onUpdateTodo: ({ id, completed }) => {
-          this.#todoListModel.updateTodo({ id, completed });
+          this.handleUpdate({ id, completed });
         },
         // Todoアイテムが削除イベントを発生したときに呼ばれるリスナー関数
         onDeleteTodo: ({ id }) => {
-          this.#todoListModel.deleteTodo({ id });
+          this.handleDelete({ id });
         }
       });
 
@@ -56,10 +80,7 @@ export class App {
       event.preventDefault();
 
       // 新しいTodoItemをTodoListへ追加する
-      this.#todoListModel.addTodo(new TodoItemModel({ //改良
-        title: inputElement.value,
-        completed: false
-      }));
+      this.handleAdd(inputElement.value);
 
       // 入力欄をから文字列にしてリセットする
       inputElement.value = "";
