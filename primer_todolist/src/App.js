@@ -24,10 +24,23 @@ export class App {
     // -----------------------
 
     // 2. TodoListModelの状態が更新されたら表示を更新する
-    this.#todoListModel.onChange(() => {//改良
+    this.#todoListModel.onChange(() => {
 
       // それぞれのTodoItem要素をtodoListElement以下へ追加する
       const todoItems = this.#todoListModel.getTodoItems();
+      const todoListView = new TodoListView();
+
+      // todoItemsに対応するTodoListViewを作成する
+      const todoListElement = todoListView.createElement(todoItems, {
+        // Todoアイテムが更新イベントをハッシエしたときに呼ばれるリスナー関数
+        onUpdateTodo: () => {
+
+        },
+        // Todoアイテムが削除イベントを発生したときに呼ばれるリスナー関数
+        onDeleteTodo: () => {
+
+        }
+      });
 
       // コンテナ要素の中身をTodoリストをまとめるList要素で上書きする
       render(todoListElement, containerElement);
