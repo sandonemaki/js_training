@@ -34,11 +34,11 @@ export class App {
       const todoListElement = todoListView.createElement(todoItems, {
         // Todoアイテムが更新イベントをハッシエしたときに呼ばれるリスナー関数
         onUpdateTodo: () => {
-
+          this.#todoListModel.updateTodo({ id, completed });
         },
         // Todoアイテムが削除イベントを発生したときに呼ばれるリスナー関数
         onDeleteTodo: () => {
-
+          this.#todoListModel.deleteTodo({ id });
         }
       });
 
