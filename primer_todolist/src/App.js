@@ -5,6 +5,7 @@ import { render } from "./view/html-util.js";
 
 export class App {
   #todoListModel = new TodoListModel();
+  #todoListView = new TodoListView();
 
   mount() {
     const formElement = document.querySelector("#js-form");
@@ -28,10 +29,9 @@ export class App {
 
       // それぞれのTodoItem要素をtodoListElement以下へ追加する
       const todoItems = this.#todoListModel.getTodoItems();
-      const todoListView = new TodoListView();
 
       // todoItemsに対応するTodoListViewを作成する
-      const todoListElement = todoListView.createElement(todoItems, {
+      const todoListElement = this.#todoListView.createElement(todoItems, {
         // Todoアイテムが更新イベントをハッシエしたときに呼ばれるリスナー関数
         onUpdateTodo: ({ id, completed }) => {
           this.#todoListModel.updateTodo({ id, completed });
