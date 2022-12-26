@@ -39,6 +39,7 @@ export class TodoItemView {
       });
     });
     // 作成されたTodoアイテムのHTML要素を返す
+    return todoItemElement;
 
   }
 
