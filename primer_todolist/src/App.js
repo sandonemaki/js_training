@@ -1,7 +1,7 @@
 import { TodoListModel } from "./model/TodoListModel.js";
 import { TodoItemModel } from "./model/TodoItemModel.js";
 import { TodoListView } from './view/TodoListView.js';
-import { element, render } from "./view/html-util.js";
+import { render } from "./view/html-util.js";
 
 export class App {
   #todoListModel = new TodoListModel();
@@ -33,11 +33,11 @@ export class App {
       // todoItemsに対応するTodoListViewを作成する
       const todoListElement = todoListView.createElement(todoItems, {
         // Todoアイテムが更新イベントをハッシエしたときに呼ばれるリスナー関数
-        onUpdateTodo: () => {
+        onUpdateTodo: ({ id, completed }) => {
           this.#todoListModel.updateTodo({ id, completed });
         },
         // Todoアイテムが削除イベントを発生したときに呼ばれるリスナー関数
-        onDeleteTodo: () => {
+        onDeleteTodo: ({ id }) => {
           this.#todoListModel.deleteTodo({ id });
         }
       });
@@ -65,6 +65,5 @@ export class App {
       inputElement.value = "";
 
     });
-
   }
 }
